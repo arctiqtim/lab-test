@@ -1,0 +1,26 @@
+yum install openldap-clients
+
+ldapsearch -x  -H ldap://<AD Server>.cloud.lab:389 -D "CN=Administrator,CN=Users,DC=cloud,DC=lab" -b "dc=cloud,dc=lab" -W objectClass=group -E pr=2147483647/noprompt
+
+ldap://<AD Server>.cloud.lab:389
+
+USER SEARCH
+[
+  "DC=cloud,DC=lab",
+  "SCOPE_SUBTREE",
+  "(sAMAccountName=%(user)s)"
+]
+
+GROUP SEARCH
+[
+  "DC=cloud,DC=lab",
+  "SCOPE_SUBTREE",
+  "(objectClass=group)"
+]
+
+USER ATTRIBUTE MAP
+{
+ "first_name": "givenName",
+ "last_name": "sn",
+ "email": "mail"
+}
